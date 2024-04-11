@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     bool isMoving;
     private float timeToMove = 0.2f;
     private Vector2 posA, posB;
+    public string direction;
+    private BoxCollider2D collider;
+    [SerializeField] float distance = 0.1f;
     [SerializeField] private float moveSpeed = 2f;
     
     // Start is called before the first frame update
@@ -31,16 +34,25 @@ public class PlayerController : MonoBehaviour
             {
                 case "w":
                     StartCoroutine(MovePlayer(Vector2.up));
+                    direction = "up";
                     break;
                 case "a":
                     StartCoroutine(MovePlayer(Vector2.left));
+                    direction = "left";
                     break;
                 case "s":
                     StartCoroutine(MovePlayer(Vector2.down));
+                    direction = "down";
                     break;
                 case "d":
                     StartCoroutine(MovePlayer(Vector2.right));
+                    direction = "right";
                     break;
+            }
+
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                RaycastAttack();
             }
         }
     }
@@ -62,5 +74,16 @@ public class PlayerController : MonoBehaviour
         }
         transform.position = posB;
         isMoving = false;
+    }
+
+    private bool RaycastAttack()
+    {
+        switch(direction)
+        {
+            case "down":
+            return Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, distance);
+        }
+            
+        
     }
 }
