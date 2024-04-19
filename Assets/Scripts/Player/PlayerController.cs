@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
@@ -13,8 +14,6 @@ public class PlayerController : MonoBehaviour
     private bool isMoving;
     private Vector2 posA;
     private Vector2 posB;
-    private float moveX;
-    private float moveY;
     private string direction;
     [SerializeField] private float moveSpeed = 5f;
 
@@ -22,8 +21,8 @@ public class PlayerController : MonoBehaviour
     //animation
     private enum MovementState 
     {
-        idleDown,
-        runDown
+        idle,
+        run
     }
     private Animator anim;
     private SpriteRenderer sprite;
@@ -48,15 +47,7 @@ public class PlayerController : MonoBehaviour
         Vector2 move = moveInput.normalized * moveSpeed * Time.fixedDeltaTime;
         posA = transform.position;
         posB = rb.position + move;
-        moveX = Input.GetAxisRaw("Horitzontal"); //remove
-        moveY = Input.GetAxisRaw("Vertical"); //remove
-        //find some other way to record direction, this input throws errors
-
-        if (moveY < 0f)
-        {
-            direction = "down";
-        }
-
+        
         if(!isMoving)
         {
             isMoving = true;
@@ -64,6 +55,27 @@ public class PlayerController : MonoBehaviour
             isMoving = false;
         }
 
+        if(moveInput.y > 0f) //up
+        {
+            direction = "up";
+        }
+        else if(moveInput.y < 0f) //down
+        {
+            direction = "down";
+        }
+        else if(moveInput.x < 0f) //left
+        {
+            direction = "left";
+        }
+        else if(moveInput.x > 0f) //right
+        {
+            direction = "right";
+        }
+        else
+        {
+            direction = "default";
+        }
+        
         AnimationUpdate();
     }
 
@@ -73,15 +85,33 @@ public class PlayerController : MonoBehaviour
 
         switch (direction)
         {
-            case "down":
-            state = MovementState.runDown;
-            anim.SetBool("runDown", true);
+            case "up":
+            state = MovementState.run;
+            anim.SetInteger("state", 2);
             break;
+            
+            case "down":
+            state = MovementState.run;
+            anim.SetInteger("state", 1);
+            break;
+
+            case "left":
+            state = MovementState.run;
+            anim.SetInteger("state", 4);
+            sprite.flipX = true;
+            break;
+
+            case "right":
+            state = MovementState.run;
+            anim.SetInteger("state", 3);
+            sprite.flipX = false;
+            break;
+
             case "default":
+            state = MovementState.idle;
+            anim.SetInteger("state", (int)state);
             break;
         }
-        
-
         
     }
 }
