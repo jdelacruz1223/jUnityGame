@@ -14,15 +14,19 @@ public class PlayerController : MonoBehaviour
     private bool isMoving;
     private Vector2 posA;
     private Vector2 posB;
-    private string direction;
+    public string direction;
     [SerializeField] private float moveSpeed = 5f;
 
+    //player combat
+    private PlayerAttack attackParent;
+    private InputAction attackAction;
 
     //animation
-    private enum MovementState 
+    public enum MovementState 
     {
         idle,
-        run
+        run,
+        attack
     }
     private Animator anim;
     private SpriteRenderer sprite;
@@ -30,16 +34,26 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        attackParent = GetComponent<PlayerAttack>();
         rb = GetComponent<Rigidbody2D>();
         collider = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         isMoving = false;
+
+        attackAction = new InputAction("Attack", InputActionType.Button, "<Keyboard>/space");
+        attackAction.Enable();
+        attackAction.performed += ctx => attackParent.Attack();
     }
 
     void OnMove(InputValue moveValue)
     {
         moveInput = moveValue.Get<Vector2>();
+    }
+
+    void OnDestroy()
+    {
+        attackAction.Disable();
     }
 
     void FixedUpdate()
@@ -77,6 +91,7 @@ public class PlayerController : MonoBehaviour
         }
         
         AnimationUpdate();
+
     }
 
     void AnimationUpdate()
@@ -113,5 +128,40 @@ public class PlayerController : MonoBehaviour
             break;
         }
         
+    }
+
+    public void AttackAnimation()
+    {
+        Debug.Log("atk anim");
+        MovementState state;
+        switch(direction)
+        {
+            case "up":
+            state = MovementState.attack;
+            anim.SetInteger("state", 6);
+            break;
+            
+            case "down":
+            state = MovementState.attack;
+            anim.SetInteger("state", 5);
+            break;
+
+            case "left":
+            state = MovementState.attack;
+            anim.SetInteger("state", 8);
+            sprite.flipX = true;
+            break;
+
+            case "right":
+            state = MovementState.attack;
+            anim.SetInteger("state", 7);
+            sprite.flipX = false;
+            break;
+
+            case "default":
+            state = MovementState.idle;
+            anim.SetInteger("state", (int)state);
+            break;
+        }
     }
 }
