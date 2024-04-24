@@ -34,6 +34,8 @@ public class PlayerAttack : MonoBehaviour
         playerParent = GetComponent<PlayerController>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+
+        playerParent.canReadInput = true;
     }
     
     void Update()
@@ -64,11 +66,15 @@ public class PlayerAttack : MonoBehaviour
 
         hit = Physics2D.Raycast(origin, direction, distance, layerMask);
         Debug.DrawRay(origin, direction * distance, Color.green);
+
     }
     
     public void Attack()
     {
-        //Debug.Log("Attack!");
+        Debug.Log("Attack!");
+        if (playerParent.canReadInput)
+        StartCoroutine(playerParent.AttackCoroutine());
+
         if(hit.collider != null)
         {
             Debug.Log("Hit Object: " + hit.collider.gameObject.name);
@@ -81,6 +87,5 @@ public class PlayerAttack : MonoBehaviour
             //Debug.Log("No Hit");
         }
         
-        playerParent.AttackAnimation();
     }
 }

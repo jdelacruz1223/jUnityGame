@@ -15,11 +15,13 @@ public class PlayerController : MonoBehaviour
     private Vector2 posA;
     private Vector2 posB;
     public string direction;
+    public string facing;
     [SerializeField] private float moveSpeed = 5f;
 
     //player combat
     private PlayerAttack attackParent;
     private InputAction attackAction;
+    public bool canReadInput;
 
     //animation
     public enum MovementState 
@@ -45,17 +47,7 @@ public class PlayerController : MonoBehaviour
         attackAction.Enable();
         attackAction.performed += ctx => attackParent.Attack();
     }
-
-    void OnMove(InputValue moveValue)
-    {
-        moveInput = moveValue.Get<Vector2>();
-    }
-
-    void OnDestroy()
-    {
-        attackAction.Disable();
-    }
-
+    
     void FixedUpdate()
     {
         Vector2 move = moveInput.normalized * moveSpeed * Time.fixedDeltaTime;
@@ -72,26 +64,32 @@ public class PlayerController : MonoBehaviour
         if(moveInput.y > 0f) //up
         {
             direction = "up";
+            facing = "up";
         }
         else if(moveInput.y < 0f) //down
         {
             direction = "down";
+            facing = "down";
         }
         else if(moveInput.x < 0f) //left
         {
             direction = "left";
+            facing = "left";
         }
         else if(moveInput.x > 0f) //right
         {
             direction = "right";
+            facing = "right";
         }
         else
         {
             direction = "default";
         }
         
-        AnimationUpdate();
-
+        if(canReadInput)
+        {
+            AnimationUpdate();
+        }
     }
 
     void AnimationUpdate()
@@ -132,9 +130,11 @@ public class PlayerController : MonoBehaviour
 
     public void AttackAnimation()
     {
-        Debug.Log("atk anim");
+        //Debug.Log("atk anim");
+        //Debug.Log(direction);
         MovementState state;
-        switch(direction)
+        
+        switch(facing)
         {
             case "up":
             state = MovementState.attack;
@@ -142,6 +142,7 @@ public class PlayerController : MonoBehaviour
             break;
             
             case "down":
+            Debug.Log("DownAttack");
             state = MovementState.attack;
             anim.SetInteger("state", 5);
             break;
@@ -163,5 +164,39 @@ public class PlayerController : MonoBehaviour
             anim.SetInteger("state", (int)state);
             break;
         }
+    }
+
+    public IEnumerator AttackCoroutine()
+    {
+        Debug.Log("Start Coroutine");
+        canReadInput = false;
+
+        Debug.Log("Play Animation");
+        AttackAnimation();
+
+        for (int i = 0; i < 15; i++)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        
+        canReadInput = true;
+
+        Debug.Log("End Animation");
+        
+    }
+
+    public bool ReadInput()
+    {
+        return canReadInput;
+    }
+
+    void OnDestroy()
+    {
+        attackAction.Disable();
+    }
+
+    void OnMove(InputValue moveValue)
+    {
+        moveInput = moveValue.Get<Vector2>();
     }
 }
