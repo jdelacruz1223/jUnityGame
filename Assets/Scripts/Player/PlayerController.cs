@@ -11,17 +11,16 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D collider;
     private Vector2 moveInput;
-    private bool isMoving;
+    [SerializeField] private bool isMoving;
     private Vector2 posA;
     private Vector2 posB;
-    public string direction;
-    public string facing;
+    [SerializeField] public string moveDir;
+    [SerializeField] public string faceDir;
     [SerializeField] private float moveSpeed = 5f;
 
     //player combat
     private PlayerAttack attackParent;
     private InputAction attackAction;
-    public bool canReadInput;
 
     //animation
     public enum MovementState 
@@ -33,6 +32,8 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sprite;
     
+
+
 
     void Start()
     {
@@ -54,49 +55,48 @@ public class PlayerController : MonoBehaviour
         posA = transform.position;
         posB = rb.position + move;
         
-        if(!isMoving)
-        {
-            isMoving = true;
-            rb.MovePosition(rb.position + move);
-            isMoving = false;
-        }
+        // if(!isMoving)
+        // {
+        //     isMoving = true;
+        //     rb.MovePosition(posB);
+        //     isMoving = false;
+        // }
+
+        rb.MovePosition(posB);
 
         if(moveInput.y > 0f) //up
         {
-            direction = "up";
-            facing = "up";
+            moveDir = "up";
+            faceDir = moveDir;
         }
         else if(moveInput.y < 0f) //down
         {
-            direction = "down";
-            facing = "down";
+            moveDir = "down";
+            faceDir = moveDir;
         }
         else if(moveInput.x < 0f) //left
         {
-            direction = "left";
-            facing = "left";
+            moveDir = "left";
+            faceDir = moveDir;
         }
         else if(moveInput.x > 0f) //right
         {
-            direction = "right";
-            facing = "right";
+            moveDir = "right";
+            faceDir = moveDir;
         }
         else
         {
-            direction = "default";
+            moveDir = "default";
         }
         
-        if(canReadInput)
-        {
-            AnimationUpdate();
-        }
+        AnimationUpdate();
     }
 
     void AnimationUpdate()
     {
         MovementState state;
 
-        switch (direction)
+        switch (moveDir)
         {
             case "up":
             state = MovementState.run;
@@ -128,67 +128,33 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    public void AttackAnimation()
-    {
-        //Debug.Log("atk anim");
-        //Debug.Log(direction);
-        MovementState state;
-        
-        switch(facing)
-        {
-            case "up":
-            state = MovementState.attack;
-            anim.SetInteger("state", 6);
-            break;
+   
+    //         case "up":
+    //         state = MovementState.attack;
+    //         anim.SetInteger("state", 6);
+    //         break;
             
-            case "down":
-            Debug.Log("DownAttack");
-            state = MovementState.attack;
-            anim.SetInteger("state", 5);
-            break;
+    //         case "down":
+    //         state = MovementState.attack;
+    //         anim.SetInteger("state", 5);
+    //         break;
 
-            case "left":
-            state = MovementState.attack;
-            anim.SetInteger("state", 8);
-            sprite.flipX = true;
-            break;
+    //         case "left":
+    //         state = MovementState.attack;
+    //         anim.SetInteger("state", 8);
+    //         sprite.flipX = true;
+    //         break;
 
-            case "right":
-            state = MovementState.attack;
-            anim.SetInteger("state", 7);
-            sprite.flipX = false;
-            break;
+    //         case "right":
+    //         state = MovementState.attack;
+    //         anim.SetInteger("state", 7);
+    //         sprite.flipX = false;
+    //         break;
 
-            case "default":
-            state = MovementState.idle;
-            anim.SetInteger("state", (int)state);
-            break;
-        }
-    }
-
-    public IEnumerator AttackCoroutine()
-    {
-        Debug.Log("Start Coroutine");
-        canReadInput = false;
-
-        Debug.Log("Play Animation");
-        AttackAnimation();
-
-        for (int i = 0; i < 15; i++)
-        {
-            yield return new WaitForEndOfFrame();
-        }
-        
-        canReadInput = true;
-
-        Debug.Log("End Animation");
-        
-    }
-
-    public bool ReadInput()
-    {
-        return canReadInput;
-    }
+    //         case "default":
+    //         state = MovementState.idle;
+    //         anim.SetInteger("state", (int)state);
+    //         break;
 
     void OnDestroy()
     {

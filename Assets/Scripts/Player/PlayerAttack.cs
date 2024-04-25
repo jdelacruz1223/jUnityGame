@@ -24,25 +24,25 @@ public class PlayerAttack : MonoBehaviour
     private PlayerController playerParent;
 
     //animation
-    //private PlayerController.MovementState state;
     private Animator anim;
     private SpriteRenderer sprite;
 
+
+
+
     void Start()
     {
-        //state = GetComponent<PlayerController.MovementState>();
         playerParent = GetComponent<PlayerController>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-
-        playerParent.canReadInput = true;
     }
     
     void Update()
     {    
-        playerDirection = GetComponent<PlayerController>().direction;
+        playerDirection = GetComponent<PlayerController>().moveDir;
         Vector2 origin = transform.position;
 
+        //raycast controller
         switch(playerDirection)
         {
             case "up":
@@ -72,20 +72,15 @@ public class PlayerAttack : MonoBehaviour
     public void Attack()
     {
         Debug.Log("Attack!");
-        if (playerParent.canReadInput)
-        StartCoroutine(playerParent.AttackCoroutine());
-
         if(hit.collider != null)
         {
-            Debug.Log("Hit Object: " + hit.collider.gameObject.name);
             Health health = hit.collider.gameObject.GetComponent<Health>();
             health.Damage(damage);
+            Debug.Log("Hit " + hit.collider.gameObject.name + " for " + damage + " damage!");
         }
         else
         {
             throw new NullReferenceException("No hit");
-            //Debug.Log("No Hit");
         }
-        
     }
 }
