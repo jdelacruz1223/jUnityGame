@@ -125,38 +125,71 @@ public class PlayerController : MonoBehaviour
     {
         MovementState state;
 
-        switch (moveDir)
+        switch (faceDir)
         {
             case "up":
-            state = MovementState.run;
-            anim.SetBool("isMoving", true);
-            anim.SetInteger("state", 2);
+                if(isMoving)
+                {   
+                    state = MovementState.run;
+                    anim.SetBool("isMoving", true);
+                    anim.SetInteger("state", 2);
+                }
+                else
+                {
+                    state = MovementState.idle;
+                    anim.SetBool("isMoving", false);
+                    anim.SetInteger("state", 0);
+                }
             break;
             
             case "down":
-            state = MovementState.run;
-            anim.SetBool("isMoving", true);
-            anim.SetInteger("state", 1);
+                if(isMoving)
+                {
+                    state = MovementState.run;
+                    anim.SetBool("isMoving", true);
+                    anim.SetInteger("state", 1);
+                }
+                else
+                {
+                    state = MovementState.idle;
+                    anim.SetBool("isMoving", false);
+                    anim.SetInteger("state", 0);
+                }
             break;
 
             case "left":
-            state = MovementState.run;
-            anim.SetBool("isMoving", true);
-            anim.SetInteger("state", 4);
-            sprite.flipX = true;
+                sprite.flipX = true;
+                if(isMoving)
+                {
+                    state = MovementState.run;
+                    anim.SetBool("isMoving", true);
+                    anim.SetInteger("state", 4);
+                }
+                else
+                {
+                    state = MovementState.idle;
+                    anim.SetBool("isMoving", false);
+                    anim.SetInteger("state", 0);
+                }
             break;
 
             case "right":
-            state = MovementState.run;
-            anim.SetBool("isMoving", true);
-            anim.SetInteger("state", 3);
-            sprite.flipX = false;
+                sprite.flipX = false;
+                if(isMoving)
+                {
+                    state = MovementState.run;
+                    anim.SetBool("isMoving", true);
+                    anim.SetInteger("state", 3); 
+                }
+                else 
+                {
+                    state = MovementState.idle;
+                    anim.SetBool("isMoving", false);
+                    anim.SetInteger("state", 0);
+                }
             break;
 
             case "default":
-            state = MovementState.idle;
-            anim.SetBool("isMoving", false);
-            anim.SetInteger("state", (int)state);
             break;
         }
 
@@ -174,7 +207,18 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack()
     {
-        anim.SetTrigger("down");
+        //anim.SetTrigger("down");
+        StartCoroutine(AnimationCoroutine());
         attackChild.Attack();
+    }
+
+    private IEnumerator AnimationCoroutine()
+    {
+        anim.SetTrigger("down");
+
+        for (int i = 0; i < 15; i++) 
+        {
+            yield return null;
+        }   
     }
 }
