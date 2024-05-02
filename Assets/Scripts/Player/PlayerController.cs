@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private InputAction attackAction;
     [SerializeField] private bool canReadInput = true;
     [SerializeField] private bool isAttacking = false;
+    private bool canMove;
 
     //animation
     public enum MovementState 
@@ -117,7 +118,6 @@ public class PlayerController : MonoBehaviour
             moveDir = "default";
             isMoving = false;
         }
-
         AnimationUpdate();
     }
 
@@ -192,7 +192,6 @@ public class PlayerController : MonoBehaviour
             case "default":
             break;
         }
-
     }
    
     void OnDestroy()
@@ -207,18 +206,29 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack()
     {
-        //anim.SetTrigger("down");
+        //anim.SetTrigger("atkDown");
         StartCoroutine(AnimationCoroutine());
-        attackChild.Attack();
+        
     }
 
     private IEnumerator AnimationCoroutine()
     {
-        anim.SetTrigger("down");
+        anim.SetTrigger("atkDown");
+        attackChild.Attack();
 
-        for (int i = 0; i < 15; i++) 
+        for (int i = 0; i < 30; i++) 
         {
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }   
+    }
+
+    public void LockMovement()
+    {
+        canMove = false;
+    }
+
+    public void UnlockMovement() 
+    {
+        canMove = true;
     }
 }
