@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 76cc1ec74dbfca742966bda9fbe5806f
+guid: ebf820b6c6495ec4aacf73a0fa2b68fb
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 100
+    spritePixelsToUnits: 16
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 0
+  platformSettingsDirtyTick: 638502966769974841
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,118 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: player_sheet
+  - name: anim_MoveUp_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: -0.06896552}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 42
-      width: 20
-      height: 29
-    spriteID: cddbba22a6ba98a429f93d89d14c8e42
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 42}
-  - name: player_sheet_Frame_1
-    originalName: 
-    pivot: {x: 0.5, y: -0.071428575}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 32
-      y: 41
-      width: 20
-      height: 28
-    spriteID: 38e84eead9d643a499ae577e8d07dae5
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 32, y: 41}
-  - name: player_sheet_Frame_2
-    originalName: 
-    pivot: {x: 0.5, y: -0.071428575}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 32
-      y: 77
-      width: 20
-      height: 28
-    spriteID: 7a85221571f1fe74fad96121f9111527
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 32, y: 77}
-  - name: player_sheet_Frame_3
-    originalName: 
-    pivot: {x: 0.5, y: -0.06896552}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 79
-      width: 20
-      height: 29
-    spriteID: ab2609b8342d3c34c923b47eb9b59a9b
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 79}
-  - name: player_sheet_Frame_4
-    originalName: 
-    pivot: {x: 0.5, y: -0.06896552}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 32
-      y: 4
-      width: 20
-      height: 29
-    spriteID: 154f6e08c7aa6e0439cdaf4ca1b4bb91
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 32, y: 4}
-  - name: player_sheet_Frame_5
-    originalName: 
-    pivot: {x: 0.5, y: -0.06666667}
+    pivot: {x: 0.47619048, y: 0.38}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 20
+      width: 21
       height: 30
-    spriteID: 55751a65be08dcc46bc1fc52a74c808a
+    spriteID: e4b1e1d25309e954e91892a4a3341cc5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -241,66 +141,202 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: anim_MoveUp_Frame_1
+    originalName: 
+    pivot: {x: 0.47619048, y: 0.38}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 33
+      y: 42
+      width: 21
+      height: 29
+    spriteID: 3a0cdbff83c1e5f45b372094fc5b106e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 33, y: 42}
+  - name: anim_MoveUp_Frame_2
+    originalName: 
+    pivot: {x: 0.47619048, y: 0.38}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 42
+      width: 21
+      height: 30
+    spriteID: dc6c3e62e719cc0429931979104b4573
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 42}
+  - name: anim_MoveUp_Frame_3
+    originalName: 
+    pivot: {x: 0.47619048, y: 0.38}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 80
+      width: 21
+      height: 30
+    spriteID: b9da5190cd2064646ba6d68f1a966ac4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 80}
+  - name: anim_MoveUp_Frame_4
+    originalName: 
+    pivot: {x: 0.47619048, y: 0.38}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 33
+      y: 79
+      width: 21
+      height: 29
+    spriteID: 86ecd90a1edba2d42b5e89d0d76751e9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 33, y: 79}
+  - name: anim_MoveUp_Frame_5
+    originalName: 
+    pivot: {x: 0.47619048, y: 0.38}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 33
+      y: 4
+      width: 21
+      height: 30
+    spriteID: 585662aed8a2b5f4f9c6987d654a9b0c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 33, y: 4}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -671390265
-    name: player_sheet
+    guid: -748473904
+    name: anim_MoveUp
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: player_sheet_Frame_0
+    - name: anim_MoveUp_Frame_0
       frameIndex: 0
       cellRect:
         x: 6
-        y: 2
-        width: 20
-        height: 29
-      spriteId: cddbba22a6ba98a429f93d89d14c8e42
-    - name: player_sheet_Frame_1
+        y: 1
+        width: 21
+        height: 30
+      spriteId: e4b1e1d25309e954e91892a4a3341cc5
+    - name: anim_MoveUp_Frame_1
       frameIndex: 1
       cellRect:
         x: 6
-        y: 2
-        width: 20
-        height: 28
-      spriteId: 38e84eead9d643a499ae577e8d07dae5
-    - name: player_sheet_Frame_2
+        y: 1
+        width: 21
+        height: 29
+      spriteId: 3a0cdbff83c1e5f45b372094fc5b106e
+    - name: anim_MoveUp_Frame_2
       frameIndex: 2
       cellRect:
         x: 6
-        y: 2
-        width: 20
-        height: 28
-      spriteId: 7a85221571f1fe74fad96121f9111527
-    - name: player_sheet_Frame_3
+        y: 1
+        width: 21
+        height: 30
+      spriteId: dc6c3e62e719cc0429931979104b4573
+    - name: anim_MoveUp_Frame_3
       frameIndex: 3
       cellRect:
         x: 6
-        y: 2
-        width: 20
-        height: 29
-      spriteId: ab2609b8342d3c34c923b47eb9b59a9b
-    - name: player_sheet_Frame_4
+        y: 1
+        width: 21
+        height: 30
+      spriteId: b9da5190cd2064646ba6d68f1a966ac4
+    - name: anim_MoveUp_Frame_4
       frameIndex: 4
       cellRect:
         x: 6
-        y: 2
-        width: 20
+        y: 1
+        width: 21
         height: 29
-      spriteId: 154f6e08c7aa6e0439cdaf4ca1b4bb91
-    - name: player_sheet_Frame_5
+      spriteId: 86ecd90a1edba2d42b5e89d0d76751e9
+    - name: anim_MoveUp_Frame_5
       frameIndex: 5
       cellRect:
         x: 6
-        y: 2
-        width: 20
+        y: 1
+        width: 21
         height: 30
-      spriteId: 55751a65be08dcc46bc1fc52a74c808a
+      spriteId: 585662aed8a2b5f4f9c6987d654a9b0c
     linkedCells: []
     parentIndex: -1
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Server
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
