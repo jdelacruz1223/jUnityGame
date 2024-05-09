@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.Callbacks;
+
 
 //using System.Numerics;
 using UnityEngine;
@@ -26,9 +28,7 @@ public class PlayerAttack : MonoBehaviour
     //animation
     private Animator anim;
     private SpriteRenderer sprite;
-
-
-
+    private Vector2 knockbackForce;
 
     void Start()
     {
@@ -72,11 +72,13 @@ public class PlayerAttack : MonoBehaviour
     public void Attack()
     {
         Debug.Log("Attack!");
-        if(hit.collider != null)
+        Collider2D target = hit.collider;
+        
+        if(target != null)
         {
-            Health health = hit.collider.gameObject.GetComponent<Health>();
+            Health health = target.gameObject.GetComponent<Health>();
             health.Damage(damage);
-            Debug.Log("Hit " + hit.collider.gameObject.name + " for " + damage + " damage!");
+            Debug.Log("Hit " + target.gameObject.name + " for " + damage + " damage!");
         }
         else
         {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BasicEnemy : MonoBehaviour
 {
     [SerializeField] LayerMask layerMask = 9;
+    public Rigidbody2D rb;
     void Start()
     {
         

@@ -213,7 +213,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator AnimationCoroutine()
     {
-        anim.SetTrigger("atkDown");
+        //anim.SetTrigger("atkDown");
         attackChild.Attack();
 
         for (int i = 0; i < 30; i++) 
