@@ -14,36 +14,39 @@ using UnityEngine.InputSystem.Controls;
 
 public class PlayerAttack : MonoBehaviour
 {
-    //attack logic
     [SerializeField] private InputActionReference attack;
     [SerializeField] LayerMask layerMask = 9;
     [SerializeField] private int damage = 10;
-    RaycastHit2D hit;
-    Vector2 direction;
-    Vector2 prevDir;
-    float distance = 1f;
-    string playerDirection;
-    private PlayerController playerParent;
-
-    //animation
-    private Animator anim;
-    private SpriteRenderer sprite;
-    private Vector2 knockbackForce;
+    private RaycastHit2D hit;
+    private Vector2 direction;
+    private Vector2 prevDir;
+    private float distance = 1f;
+    private PlayerAnimation animChild;
 
     void Start()
     {
-        playerParent = GetComponent<PlayerController>();
-        anim = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
+        animChild = GetComponent<PlayerAnimation>();
+        direction = Vector2.down;
     }
     
-    void Update()
+    void FixedUpdate()
     {    
-        playerDirection = GetComponent<PlayerController>().moveDir;
         Vector2 origin = transform.position;
 
-        //raycast controller
-        switch(playerDirection)
+        RayDirection();
+        DrawRay(origin);
+
+    }
+
+    void DrawRay(Vector2 origin)
+    {
+        hit = Physics2D.Raycast(origin, direction, distance, layerMask);
+        Debug.DrawRay(origin, direction * distance, Color.green);
+    }
+
+    public void RayDirection()
+    {
+        switch(DataManager.me.faceDir)
         {
             case "up":
             direction = Vector2.up;
@@ -61,28 +64,39 @@ public class PlayerAttack : MonoBehaviour
             direction = prevDir;
             break;
         }
-
         prevDir = direction;
-
-        hit = Physics2D.Raycast(origin, direction, distance, layerMask);
-        Debug.DrawRay(origin, direction * distance, Color.green);
-
     }
-    
+
     public void Attack()
     {
         Debug.Log("Attack!");
+
         Collider2D target = hit.collider;
         
-        if(target != null)
+        animChild.animationUpdate();
+        try
         {
-            Health health = target.gameObject.GetComponent<Health>();
-            health.Damage(damage);
-            Debug.Log("Hit " + target.gameObject.name + " for " + damage + " damage!");
+            if(target != null)
+            {
+                Health health = target.gameObject.GetComponent<Health>();
+                health.Damage(damage);
+                Debug.Log("Hit " + target.gameObject.name + " for " + damage + " damage!");
+            }
+            else
+            {
+                throw new NullReferenceException("No hit");
+            }
         }
-        else
+        catch (NullReferenceException e)
         {
-            throw new NullReferenceException("No hit");
+            Debug.LogError("Null Reference exception " + e.Message);
         }
+        finally
+        {
+            DataManager.me.canMove = true;
+        }
+        
+        
+        
     }
 }

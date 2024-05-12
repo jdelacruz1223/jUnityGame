@@ -6,7 +6,12 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public static DataManager me;
+    public bool canMove;
     public bool isMoving;
+    public bool isAttacking;
+    public string moveDir;
+    public string faceDir;
+    
 
 
     void Awake()

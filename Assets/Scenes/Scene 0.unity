@@ -37326,8 +37326,11 @@ GameObject:
   - component: {fileID: 683668248}
   - component: {fileID: 683668247}
   - component: {fileID: 683668246}
-  - component: {fileID: 683668250}
   - component: {fileID: 683668251}
+  - component: {fileID: 683668253}
+  - component: {fileID: 683668252}
+  - component: {fileID: 683668250}
+  - component: {fileID: 683668254}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -37414,27 +37417,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9fde091744e2147b535143c3b1d8a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5.5
-  isMoving: 0
-  moveDir: 
-  faceDir: 
-  collisionOffset: 0.05
-  movementFilter:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 1024
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
-  canReadInput: 0
-  isAttacking: 0
 --- !u!114 &683668247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37575,6 +37557,64 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   damage: 10
+--- !u!114 &683668252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683668243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647f60ea7eba35c4b8e1ac1b678a166f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMove: 0
+  isMoving: 0
+  isAttacking: 0
+  moveDir: 
+  faceDir: 
+--- !u!114 &683668253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683668243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af9be32c07835244bb2c09e54547c91c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  collisionOffset: 0.05
+  moveInput: {x: 0, y: 0}
+  movementFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+--- !u!114 &683668254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683668243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4372378b9599bf4b86d527e7de87be7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1242781110
 GameObject:
   m_ObjectHideFlags: 0
