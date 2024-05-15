@@ -69,34 +69,28 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("Attack!");
-
-        Collider2D target = hit.collider;
-        
-        animChild.animationUpdate();
-        try
+        if(DataManager.me.canMove)
         {
-            if(target != null)
+            Collider2D target = hit.collider;
+            Debug.Log("Attack!");
+            animChild.attackAnimation();
+            try
             {
-                Health health = target.gameObject.GetComponent<Health>();
-                health.Damage(damage);
-                Debug.Log("Hit " + target.gameObject.name + " for " + damage + " damage!");
+                if(target != null)
+                {
+                    Health health = target.gameObject.GetComponent<Health>();
+                    health.Damage(damage);
+                    Debug.Log("Hit " + target.gameObject.name + " for " + damage + " damage!");
+                }
+                else
+                {
+                    throw new NullReferenceException("No hit");
+                }
             }
-            else
+            catch (NullReferenceException e)
             {
-                throw new NullReferenceException("No hit");
+                Debug.LogError("Null Reference exception " + e.Message);
             }
         }
-        catch (NullReferenceException e)
-        {
-            Debug.LogError("Null Reference exception " + e.Message);
-        }
-        finally
-        {
-            DataManager.me.canMove = true;
-        }
-        
-        
-        
     }
 }

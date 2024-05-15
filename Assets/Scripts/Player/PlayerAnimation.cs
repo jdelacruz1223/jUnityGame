@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
@@ -21,16 +22,40 @@ public class PlayerAnimation : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
     }
 
+    public void attackAnimation()
+    {
+        //Debug.Log("attackAnim");
+        MovementState state;
+
+        // switch (DataManager.me.faceDir)
+        // {
+        //     case "up":
+        //     state = MovementState.attack;
+        //     anim.SetTrigger("Attack");
+        //     break;
+        //     case "down":
+        //     state = MovementState.attack;
+        //     anim.SetTrigger("Attack");
+        //     break;
+        //     case "left":
+        //     state = MovementState.attack;
+        //     anim.SetTrigger("Attack");
+        //     break;
+        //     case "right":
+        //     state = MovementState.attack;
+        //     anim.SetTrigger("Attack");
+        //     break;
+        //     case "default":
+        //     break;
+        // }
+        state = MovementState.attack;
+        anim.SetTrigger("Attack");
+    }
     public void animationUpdate()
     {
         MovementState state;
 
-        if(!DataManager.me.canMove)
-        {
-            state = MovementState.attack;
-            anim.SetTrigger("Attack");
-            return;
-        }
+        if(!DataManager.me.canMove) return;
 
         switch (DataManager.me.faceDir)
         {

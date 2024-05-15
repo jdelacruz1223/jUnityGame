@@ -172,10 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55387468ff5b5e41bfeccc077343663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  rb: {fileID: 0}
+  player: {fileID: 3332745666208234377, guid: 8b048e6e78d7df949b7cc2448e995582, type: 3}
+  speed: 0
 --- !u!114 &7925731676934375341
 MonoBehaviour:
   m_ObjectHideFlags: 0

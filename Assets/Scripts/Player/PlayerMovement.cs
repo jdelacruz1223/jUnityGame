@@ -37,10 +37,9 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
             }
-        }
-        
-        recordDirection();
+            recordDirection();
         animChild.animationUpdate();
+        }
     }
 
     private bool TryMove(Vector2 direction)
@@ -99,10 +98,12 @@ public class PlayerMovement : MonoBehaviour
     public void LockMovement()
     {
         DataManager.me.canMove = false;
+        Debug.Log("LockMovement");
     }
 
     public void UnlockMovement() 
     {
         DataManager.me.canMove = true;
+        Debug.Log("UnlockMovement");
     }
 }

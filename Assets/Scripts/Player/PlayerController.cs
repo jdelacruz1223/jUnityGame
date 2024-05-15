@@ -14,13 +14,12 @@ public class PlayerController : MonoBehaviour
     private PlayerAttack attackChild;
     private InputAction attackAction;
     private PlayerMovement moveChild;
-    //private PlayerAnimation animChild;
+    private PlayerAnimation animChild;
 
     void Start()
     {
         attackChild = GetComponent<PlayerAttack>();
         moveChild = GetComponent<PlayerMovement>();
-        //animChild = GetComponent<PlayerAnimation>();
 
         attackAction = new InputAction("Attack", InputActionType.Button, "<Keyboard>/space");
         attackAction.Enable();
@@ -35,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack()
     {
-        DataManager.me.canMove = false;
+        //DataManager.me.canMove = false;
         attackChild.Attack();
     }
 

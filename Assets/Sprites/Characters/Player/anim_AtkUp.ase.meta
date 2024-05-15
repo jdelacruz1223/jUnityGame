@@ -2,7 +2,12 @@ fileFormatVersion: 2
 guid: 7b980598b2e7c3a438b8044a63f655d8
 ScriptedImporter:
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: anim_AtkUp_Clip
+    second: {fileID: 7400000, guid: 178809cd5d8edf143a80b4d48f3dc2dd, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -97,7 +102,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638509615085931185
+  platformSettingsDirtyTick: 638513023283656355
   textureAssetName: 
   singleSpriteImportData:
   - name: 

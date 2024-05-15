@@ -2,7 +2,12 @@ fileFormatVersion: 2
 guid: 303f55581e958fb44ae4bb6a7c7ddab5
 ScriptedImporter:
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: anim_AtkSide_Clip
+    second: {fileID: 7400000, guid: cd9e854e31e25e349baf63a4ed94deb5, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -97,7 +102,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638509615054152040
+  platformSettingsDirtyTick: 638513022354287419
   textureAssetName: 
   singleSpriteImportData:
   - name: 
