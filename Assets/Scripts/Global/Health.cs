@@ -63,7 +63,7 @@ public class Health : MonoBehaviour
     void Die()
     {
         Debug.Log(gameObject.name + " dead");
-        if(gameObject.name == "Player")
+        if(gameObject.tag == "Player")
             restartLevel();
         else
             Destroy(gameObject);

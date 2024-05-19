@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 3947919768193639090}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,8 @@ Transform:
   m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2184619455596958989}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4022718549746608245
@@ -125,7 +126,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.006212324, y: -0.55063605}
+  m_Offset: {x: 0.006212324, y: -0.5046328}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.52380955, y: 0.38}
@@ -136,7 +137,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7588003, y: 0.1852985}
+  m_Size: {x: 0.7588003, y: 0.16020548}
   m_EdgeRadius: 0
 --- !u!50 &8013000372860972593
 Rigidbody2D:
@@ -207,6 +208,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9fde091744e2147b535143c3b1d8a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 
+  canMove: 1
+  isMoving: 0
+  isAttacking: 0
+  attackDuration: 1
 --- !u!114 &4594259676191538339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cdf831d352950c4c9b27fa95a1cd81d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockbackForce: 10
+  knockbackDistance: 1
   attack: {fileID: -9025769326729351955, guid: 288220bb9e8011948bd8e177612d205d, type: 3}
   layerMask:
     serializedVersion: 2
@@ -265,11 +273,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647f60ea7eba35c4b8e1ac1b678a166f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canMove: 0
   isMoving: 0
   isAttacking: 0
-  moveDir: 
-  faceDir: 
+  lifeBar: {fileID: 0}
+  maxLives: 5
+  lifeCount: 3
+  BombsCollected: 0
 --- !u!95 &5170376997194091150
 Animator:
   serializedVersion: 5
@@ -303,3 +312,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4372378b9599bf4b86d527e7de87be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7765169179516744433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2184619455596958989}
+  - component: {fileID: 6402359422767062482}
+  m_Layer: 0
+  m_Name: Hurtbox
+  m_TagString: PlayerHitbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2184619455596958989
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7765169179516744433}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.85474896, y: 0.51301944, z: 387.65585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8893141738624646324}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &6402359422767062482
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7765169179516744433}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.8531542, y: -0.29274872}
+  m_Size: {x: 1.3866103, y: 2.1393933}
+  m_Direction: 0

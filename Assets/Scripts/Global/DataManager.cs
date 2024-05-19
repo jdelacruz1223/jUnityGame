@@ -6,11 +6,15 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public static DataManager me;
-    [SerializeField] public bool canMove;
+    //[SerializeField] public bool canMove;
     public bool isMoving;
     public bool isAttacking;
-    public string moveDir;
-    public string faceDir;
+
+    public GameObject lifeBar = null;
+    public int maxLives = 5;
+    public int lifeCount = 3;
+
+    [SerializeField] public int BombsCollected = 0;
     
 
 

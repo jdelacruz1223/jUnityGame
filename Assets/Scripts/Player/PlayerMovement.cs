@@ -1,45 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private PlayerAnimation animChild;
+    private PlayerAnimation playerAnimation;
     [SerializeField] public float moveSpeed = 5f;
     [SerializeField] public float collisionOffset = 0.05f;
     public Vector2 moveInput;
     public ContactFilter2D movementFilter;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+    string currentDirection;
     
     
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animChild = GetComponent<PlayerAnimation>();
+        playerAnimation = GetComponent<PlayerAnimation>();
     }
 
-    public void movement()
+    public void Move()
     {
-        if(DataManager.me.canMove)
+        if(moveInput != Vector2.zero)
         {
-            if(moveInput != Vector2.zero)
-            {
-                bool success = TryMove(moveInput);
+            bool success = TryMove(moveInput);
 
+            if(!success)
+            {
+                success = TryMove(new Vector2(moveInput.x, 0));
                 if(!success)
                 {
-                    success = TryMove(new Vector2(moveInput.x, 0));
-                    if(!success)
-                    {
-                        success = TryMove(new Vector2(0, moveInput.y));
-                    }
+                    success = TryMove(new Vector2(0, moveInput.y));
                 }
             }
-            recordDirection();
-        animChild.animationUpdate();
         }
+        
     }
 
     private bool TryMove(Vector2 direction)
@@ -62,48 +60,32 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void recordDirection()
+    public string getDirection()
     {
+        
         if (moveInput.y > 0f) //up
         {
-            DataManager.me.moveDir = "up";
-            DataManager.me.faceDir = DataManager.me.moveDir;
-            DataManager.me.isMoving = true;
+            currentDirection = "up";
+            return currentDirection;
         }
         else if (moveInput.y < 0f) //down
         {
-            DataManager.me.moveDir = "down";
-            DataManager.me.faceDir = DataManager.me.moveDir;
-            DataManager.me.isMoving = true;
+            currentDirection = "down";
+            return currentDirection;
         }
         else if (moveInput.x < 0f) //left
         {
-            DataManager.me.moveDir = "left";
-            DataManager.me.faceDir = DataManager.me.moveDir;
-            DataManager.me.isMoving = true;
+            currentDirection = "left";
+            return currentDirection;
         }
         else if (moveInput.x > 0f) //right
         {
-            DataManager.me.moveDir = "right";
-            DataManager.me.faceDir = DataManager.me.moveDir;
-            DataManager.me.isMoving = true;
+            currentDirection = "right";
+            return currentDirection;
         }
         else
         {
-            DataManager.me.moveDir = "default";
-            DataManager.me.isMoving = false;
+            return currentDirection;
         }
-    }
-
-    public void LockMovement()
-    {
-        DataManager.me.canMove = false;
-        Debug.Log("LockMovement");
-    }
-
-    public void UnlockMovement() 
-    {
-        DataManager.me.canMove = true;
-        Debug.Log("UnlockMovement");
     }
 }
