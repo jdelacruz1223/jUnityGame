@@ -26,6 +26,7 @@ public class PlayerAttack : MonoBehaviour
     private float distance = 1.5f;
     
     PlayerMovement playerMovement;
+    HitboxController hitbox;
 
     void Start()
     {
@@ -37,7 +38,7 @@ public class PlayerAttack : MonoBehaviour
     {    
         Vector2 origin = transform.position;
 
-        RayDirection(playerMovement.getDirection());
+        RayDirection(playerMovement.getDirection()); //lock here
         DrawRay(origin);
     }
 
@@ -70,10 +71,10 @@ public class PlayerAttack : MonoBehaviour
         prevDir = rayDir;
     }
 
-    public void Attack(bool isAttacking)
+    public void Attack()
     {
         Collider2D target = hit.collider;
-        Debug.Log("Attack!");
+        //Debug.Log("Attack!");
         try
         {
             if(target != null)
@@ -92,4 +93,18 @@ public class PlayerAttack : MonoBehaviour
             Debug.LogError("Null Reference exception " + e.Message);
         }
     }
+
+
+
+    void HitboxEnable()
+    {
+        
+    }
+
+    void HitboxDisable()
+    {
+
+    }
+
+    
 }

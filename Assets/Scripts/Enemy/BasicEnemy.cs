@@ -29,6 +29,11 @@ public class BasicEnemy : MonoBehaviour
         
     }
 
+    void OnHit(float damage) 
+    {
+        Debug.Log("Enemy hit for " + damage);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("PlayerHitbox"))

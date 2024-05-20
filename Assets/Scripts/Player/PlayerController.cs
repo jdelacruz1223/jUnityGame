@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.Scripting.APIUpdating;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,12 +15,17 @@ public class PlayerController : MonoBehaviour
     private InputAction attackAction;
     private PlayerMovement playerMovement;
     private PlayerAnimation playerAnimation;
+    
 
     [SerializeField] string direction;
     [SerializeField] private bool canMove = true;
     [SerializeField] private bool isMoving = false;
-    [SerializeField] private bool isAttacking = false;
     [SerializeField] private float attackDuration = 1f;
+    [SerializeField] private float attackDelay = 1f;
+
+
+    public GameObject swordHitbox;
+    Collider2D swordCollider;
 
     void Start()
     {
@@ -27,8 +33,39 @@ public class PlayerController : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerAnimation = GetComponent<PlayerAnimation>();
 
+        swordCollider = swordHitbox.GetComponent<Collider2D>();
+
         attackAction = new InputAction("Attack", InputActionType.Button, "<Keyboard>/space");
         attackAction.Enable();
+    }
+
+    private void Update()
+    {
+        //IsInput();
+        // if (Input.GetKeyDown(KeyCode.F))
+        // {
+        //     LockMovement();
+        // }
+
+        // if (Input.GetKeyDown(KeyCode.G))
+        // {
+        //     UnlockMovement();
+        // }
+
+        direction = playerMovement.getDirection();
+        playerMovement.Move();
+        
+        playerAnimation.animationUpdate(direction, checkIfMoving());
+
+    }
+
+    void OnMove(InputValue moveValue)
+    {
+        if (!canMove)
+        {
+            return;
+        }
+        playerMovement.moveInput = moveValue.Get<Vector2>();
     }
 
     void OnDestroy()
@@ -36,38 +73,42 @@ public class PlayerController : MonoBehaviour
         attackAction.Disable();
     }
 
-    private void Update()
-    {
-        if(canMove) 
-        {
-            direction = playerMovement.getDirection();
-            playerMovement.Move();
-        }
-        
-        playerAnimation.animationUpdate(direction, checkIfMoving());        
-    }
-
-    void OnMove(InputValue moveValue)
-    {
-        playerMovement.moveInput = moveValue.Get<Vector2>();
-    }
-
     void OnAttack()
     {
+        StartCoroutine(AttackCoroutine());
+    }
+
+    IEnumerator AttackCoroutine()
+    {
+        LockMovement();
         playerAnimation.attackAnimation();
-        playerAttack.Attack(isAttacking);
+        //playerAttack.Attack();
+
+        // for (int i = 0; i < attackDelay; i++)
+        // {
+        //     yield return new WaitForEndOfFrame();
+        //     yield return new WaitForSeconds(1);
+        // }
+
+        for (int i = 0; i < attackDelay; i++)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        
+        UnlockMovement();
+
     }
 
     public void LockMovement()
     {
         canMove = false;
-        Debug.Log("LockMovement");
+        //Debug.Log("LockMovement");
     }
 
     public void UnlockMovement() 
     {
         canMove = true;
-        Debug.Log("UnlockMovement");
+        //Debug.Log("UnlockMovement");
     }
 
     private bool checkIfMoving()
@@ -80,6 +121,16 @@ public class PlayerController : MonoBehaviour
         {
             return isMoving = false;
         }
+    }
+
+    bool IsInput() //debug
+    {
+        if (Input.anyKey)
+        {
+            //Debug.Log("Input Detected");
+            return true;
+        }
+        else return false;
     }
 
 }
