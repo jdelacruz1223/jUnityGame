@@ -5,21 +5,19 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private PlayerAnimation playerAnimation;
     [SerializeField] public float moveSpeed = 5f;
     [SerializeField] public float collisionOffset = 0.05f;
+    private Rigidbody2D rb;
     public Vector2 moveInput;
     public ContactFilter2D movementFilter;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     string currentDirection;
-    
+
     
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerAnimation = GetComponent<PlayerAnimation>();
     }
 
     public void Move()

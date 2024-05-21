@@ -13,10 +13,6 @@ public class QuestItem : MonoBehaviour
             DataManager.me.BombsCollected += 1;
             Destroy(gameObject);
         }
-        if(DataManager.me.BombsCollected == 4)
-        {
-            //create boss gameobject, load boss prefab
-            Debug.Log("you win!");
-        }
+        
     }
 }

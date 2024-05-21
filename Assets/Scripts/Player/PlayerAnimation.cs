@@ -23,8 +23,6 @@ public class PlayerAnimation : MonoBehaviour
     
     public void animationUpdate(string direction, bool isMoving)
     {
-        //MovementState state;
-
         switch (direction)
         {
             case "up":
@@ -96,6 +94,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void attackAnimation()
     {
+        state = MovementState.attack;
         anim.SetTrigger("Attack");
     }
 }

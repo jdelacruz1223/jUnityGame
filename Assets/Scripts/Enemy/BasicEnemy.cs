@@ -9,12 +9,13 @@ public class BasicEnemy : MonoBehaviour
     public float speed;
     [SerializeField] public float attractDistance = 6f;
     private float distance;
+    Health health;
 
     [SerializeField] public float knockbackForce = 10f;
 
     void Start()
     {
-
+        health = GetComponent<Health>();
     }
 
     void Update()
@@ -31,12 +32,13 @@ public class BasicEnemy : MonoBehaviour
 
     void OnHit(float damage) 
     {
-        Debug.Log("Enemy hit for " + damage);
+        Debug.Log(gameObject.name + " hit for " + damage);
+        health.Damage((int)damage);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("PlayerHitbox"))
+        if(other.CompareTag("Player"))
         {
             Health playerHealth = other.gameObject.GetComponent<Health>();
             playerHealth.Damage(20);

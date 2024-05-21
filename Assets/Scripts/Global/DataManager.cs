@@ -6,16 +6,30 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public static DataManager me;
-    //[SerializeField] public bool canMove;
-    public bool isMoving;
-    public bool isAttacking;
-
     public GameObject lifeBar = null;
     public int maxLives = 5;
     public int lifeCount = 3;
-
     [SerializeField] public int BombsCollected = 0;
+    public GameObject bossPrefab;
+    public Vector3 bossSpawnPos;
+    private bool isBossSpawned = false;
+
+    void SpawnBoss()
+    {
+        Instantiate(bossPrefab, bossSpawnPos, Quaternion.identity);
+        isBossSpawned = true;
+        Debug.Log("Boss spawned!");
+        
+    }
     
+    void Update()
+    {
+        if(!isBossSpawned && BombsCollected == 4)
+            {
+                SpawnBoss();
+            }
+        
+    }
 
 
     void Awake()

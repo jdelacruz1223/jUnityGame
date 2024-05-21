@@ -11,16 +11,13 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerAttack playerAttack;
     private InputAction attackAction;
     private PlayerMovement playerMovement;
     private PlayerAnimation playerAnimation;
     
 
-    [SerializeField] string direction;
+    [SerializeField] public string direction;
     [SerializeField] private bool canMove = true;
-    [SerializeField] private bool isMoving = false;
-    [SerializeField] private float attackDuration = 1f;
     [SerializeField] private float attackDelay = 1f;
 
 
@@ -29,34 +26,20 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        playerAttack = GetComponent<PlayerAttack>();
         playerMovement = GetComponent<PlayerMovement>();
         playerAnimation = GetComponent<PlayerAnimation>();
-
         swordCollider = swordHitbox.GetComponent<Collider2D>();
 
         attackAction = new InputAction("Attack", InputActionType.Button, "<Keyboard>/space");
         attackAction.Enable();
+        
     }
 
     private void Update()
     {
-        //IsInput();
-        // if (Input.GetKeyDown(KeyCode.F))
-        // {
-        //     LockMovement();
-        // }
-
-        // if (Input.GetKeyDown(KeyCode.G))
-        // {
-        //     UnlockMovement();
-        // }
-
         direction = playerMovement.getDirection();
         playerMovement.Move();
-        
         playerAnimation.animationUpdate(direction, checkIfMoving());
-
     }
 
     void OnMove(InputValue moveValue)
@@ -81,20 +64,15 @@ public class PlayerController : MonoBehaviour
     IEnumerator AttackCoroutine()
     {
         LockMovement();
+        EnableCollider();
+        UpdateHitboxPosition(direction);
         playerAnimation.attackAnimation();
-        //playerAttack.Attack();
-
-        // for (int i = 0; i < attackDelay; i++)
-        // {
-        //     yield return new WaitForEndOfFrame();
-        //     yield return new WaitForSeconds(1);
-        // }
 
         for (int i = 0; i < attackDelay; i++)
         {
             yield return new WaitForEndOfFrame();
         }
-        
+        DisableCollider();
         UnlockMovement();
 
     }
@@ -102,35 +80,65 @@ public class PlayerController : MonoBehaviour
     public void LockMovement()
     {
         canMove = false;
-        //Debug.Log("LockMovement");
+        playerMovement.moveInput = Vector2.zero;
     }
 
     public void UnlockMovement() 
     {
         canMove = true;
-        //Debug.Log("UnlockMovement");
     }
 
     private bool checkIfMoving()
     {
         if(playerMovement.moveInput != Vector2.zero)
         {
-            return isMoving = true;
+            return true;
         }
         else
         {
-            return isMoving = false;
+            return false;
         }
     }
 
-    bool IsInput() //debug
+    public void EnableCollider()
     {
-        if (Input.anyKey)
+        if(swordCollider != null)
         {
-            //Debug.Log("Input Detected");
-            return true;
+            swordCollider.enabled = true;
         }
-        else return false;
     }
 
+    public void DisableCollider()
+    {
+        if(swordCollider != null)
+        {
+            swordCollider.enabled = false;
+        }
+    }
+
+    void UpdateHitboxPosition(string direction)
+    {
+        Quaternion rotation = Quaternion.identity;
+
+        switch(direction)
+        {
+            case "up":
+            rotation = Quaternion.Euler(0,0,180);
+            break;
+            case "down":
+            rotation = Quaternion.Euler(0,0,0);
+            break;
+            case "left":
+            rotation = Quaternion.Euler(0,0,-90);
+            break;
+            case "right":
+            rotation = Quaternion.Euler(0,0,90);
+            break;
+            case "default":
+            Debug.LogWarning("Invalid Direction");
+            return;
+        }
+
+        swordCollider.transform.rotation = rotation;
+    }
 }
