@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LifeBar : MonoBehaviour
 {
     [SerializeField] private GameObject lifePrefab;
     [SerializeField] private int prefabWidth = 50;
+    [SerializeField] private int gameoverSceneNumber = 3;
     
     int currentLifeCount = 5;
     private GameObject[] lifeBarArray;
@@ -41,6 +43,11 @@ public class LifeBar : MonoBehaviour
             else
             {
                 lifeBarArray[i].SetActive(false);
+            }
+
+            if(DataManager.me.lifeCount<=0)
+            {
+                SceneManager.LoadScene(gameoverSceneNumber);
             }
         }
     }
