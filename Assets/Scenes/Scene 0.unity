@@ -15432,8 +15432,8 @@ Tilemap:
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -21, y: -25, z: 0}
-  m_Size: {x: 43, y: 52, z: 1}
+  m_Origin: {x: -33, y: -25, z: 0}
+  m_Size: {x: 55, y: 53, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -38191,6 +38191,22 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[1]
       value: 
       objectReference: {fileID: 1367455134}
+    - target: {fileID: 8025699931139598335, guid: f251277777a05d3469adedf37908816c, type: 3}
+      propertyPath: m_Size.x
+      value: 1.8838544
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025699931139598335, guid: f251277777a05d3469adedf37908816c, type: 3}
+      propertyPath: m_Size.y
+      value: 1.9634058
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025699931139598335, guid: f251277777a05d3469adedf37908816c, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.026540995
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025699931139598335, guid: f251277777a05d3469adedf37908816c, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.004202485
+      objectReference: {fileID: 0}
     - target: {fileID: 9123927127397071274, guid: f251277777a05d3469adedf37908816c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.3934226
@@ -38358,6 +38374,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 52866186816634364, guid: e2c6c899d9b6ca745bbd428deceed11a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5933153771337644656, guid: e2c6c899d9b6ca745bbd428deceed11a, type: 3}
       propertyPath: m_Name
       value: Spawn3
