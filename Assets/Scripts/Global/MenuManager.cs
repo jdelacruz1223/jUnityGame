@@ -15,4 +15,10 @@ public class MenuManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        DataManager.me.lifeCount = 3;
+    }
 }

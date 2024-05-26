@@ -60,26 +60,21 @@ public class PlayerMovement : MonoBehaviour
 
     public string getDirection()
     {
-        
         if (moveInput.y > 0f) //up
         {
-            currentDirection = "up";
-            return currentDirection;
+            return currentDirection = "up";
         }
         else if (moveInput.y < 0f) //down
         {
-            currentDirection = "down";
-            return currentDirection;
+            return currentDirection = "down";
         }
         else if (moveInput.x < 0f) //left
         {
-            currentDirection = "left";
-            return currentDirection;
+            return currentDirection = "left";
         }
         else if (moveInput.x > 0f) //right
         {
-            currentDirection = "right";
-            return currentDirection;
+            return currentDirection = "right";
         }
         else
         {

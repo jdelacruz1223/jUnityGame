@@ -6,18 +6,22 @@ using UnityEngine;
 public class EnemySpawn : MonoBehaviour
 {
 
-    [SerializeField] private GameObject EnemyToSpawn;
+    [SerializeField] private GameObject[] EnemyToSpawn;
     [SerializeField] private GameObject[] Spawnpoints;
-    [SerializeField] private int maxEnemyCount = 1;
+    [SerializeField] private int maxEnemyCount = 4;
     [SerializeField] private int spawnDelay = 2;
+    private List<GameObject> activeEnemies = new List<GameObject>();
     private int currentWaypointIndex = 0;
-    private int currentEnemyCount = 0;
+    private bool isSpawning = false;
     
 
     // Update is called once per frame
     void Update()
     {
-        if(currentEnemyCount < maxEnemyCount)
+
+        activeEnemies.RemoveAll(enemy => enemy == null);
+
+        if (activeEnemies.Count < maxEnemyCount && !isSpawning)
         {
             StartCoroutine(SpawnEnemyCoroutine());
         }
@@ -25,13 +29,26 @@ public class EnemySpawn : MonoBehaviour
 
     private IEnumerator SpawnEnemyCoroutine()
     {
-        if(currentWaypointIndex == maxEnemyCount) currentWaypointIndex = 0;
-        Instantiate(EnemyToSpawn, Spawnpoints[currentWaypointIndex].transform.position, Quaternion.identity);
+        isSpawning = true;
 
-        for(int i = 0; i < spawnDelay; i++)
+        if (currentWaypointIndex == Spawnpoints.Length)
         {
-            yield return new WaitForSeconds(1); 
+            currentWaypointIndex = 0;
         }
+
+        GameObject newEnemy = Instantiate
+        (
+            EnemyToSpawn[currentWaypointIndex], 
+            Spawnpoints[currentWaypointIndex].transform.position, 
+            Quaternion.identity
+        );
+        
+        activeEnemies.Add(newEnemy);
+        currentWaypointIndex++;
+
+        yield return new WaitForSeconds(spawnDelay);
+        isSpawning = false; 
+        
     }
 
 }

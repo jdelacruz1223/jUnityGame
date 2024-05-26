@@ -15,11 +15,9 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerAnimation playerAnimation;
     
-
-    [SerializeField] public string direction;
     [SerializeField] private bool canMove = true;
     [SerializeField] private float attackDelay = 1f;
-
+    public string direction;
 
     public GameObject swordHitbox;
     Collider2D swordCollider;
@@ -77,45 +75,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void LockMovement()
-    {
-        canMove = false;
-        playerMovement.moveInput = Vector2.zero;
-    }
-
-    public void UnlockMovement() 
-    {
-        canMove = true;
-    }
-
-    private bool checkIfMoving()
-    {
-        if(playerMovement.moveInput != Vector2.zero)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public void EnableCollider()
-    {
-        if(swordCollider != null)
-        {
-            swordCollider.enabled = true;
-        }
-    }
-
-    public void DisableCollider()
-    {
-        if(swordCollider != null)
-        {
-            swordCollider.enabled = false;
-        }
-    }
-
     void UpdateHitboxPosition(string direction)
     {
         Quaternion rotation = Quaternion.identity;
@@ -141,4 +100,45 @@ public class PlayerController : MonoBehaviour
 
         swordCollider.transform.rotation = rotation;
     }
+
+    private bool checkIfMoving()
+    {
+        if(playerMovement.moveInput != Vector2.zero)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void LockMovement()
+    {
+        canMove = false;
+        playerMovement.moveInput = Vector2.zero;
+    }
+
+    public void UnlockMovement() 
+    {
+        canMove = true;
+    }
+    
+    public void EnableCollider()
+    {
+        if(swordCollider != null)
+        {
+            swordCollider.enabled = true;
+        }
+    }
+
+    public void DisableCollider()
+    {
+        if(swordCollider != null)
+        {
+            swordCollider.enabled = false;
+        }
+    }
+
+    
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //A singleton class for storing persistent data between scenes.
 public class DataManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class DataManager : MonoBehaviour
     public Vector3 bossSpawnPos;
     private bool isBossSpawned = false;
 
+
     void SpawnBoss()
     {
         Instantiate(bossPrefab, bossSpawnPos, Quaternion.identity);
@@ -25,9 +27,19 @@ public class DataManager : MonoBehaviour
     void Update()
     {
         if(!isBossSpawned && BombsCollected == 4)
-            {
-                SpawnBoss();
-            }
+        {
+            SpawnBoss();
+        }
+
+        if(lifeCount == 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            lifeCount--;
+        }
         
     }
 

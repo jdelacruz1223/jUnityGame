@@ -6,25 +6,18 @@ using UnityEngine.SceneManagement;
 public class Health : MonoBehaviour
 {
     [SerializeField] public int MAX_HEALTH = 100;
-    [SerializeField] private int health;
+    [SerializeField] public int health;
+    [SerializeField] private GameObject ItemToSpawn;
+    [SerializeField] public float dropChance = 50f;
+    private BasicEnemy enemy;
+    
 
     void Start()
     {
+        enemy = GetComponent<BasicEnemy>();
         health = MAX_HEALTH;
     }
-    
-    void Update()
-    {
-        // if (Input.GetKeyDown(KeyCode.D))
-        // {
-        //     Damage(10);
-        // }
 
-        // if (Input.GetKeyDown(KeyCode.H))
-        // {
-        //     Heal(10);
-        // }
-    }
 
     public void Damage(int amount)
     {
@@ -64,13 +57,36 @@ public class Health : MonoBehaviour
     {
         Debug.Log(gameObject.name + " dead");
         if(gameObject.tag == "Player")
+        {
             restartLevel();
+        }  
         else
+        {
+            dropBomb();
             Destroy(gameObject);
+        }
+            
     }
 
     private void restartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    private void dropBomb()
+    {
+        float randomValue = Random.Range(0f, 1f);
+
+        if (randomValue <= dropChance)
+        {
+            Instantiate
+            (
+                ItemToSpawn,
+                enemy.transform.position,
+                Quaternion.identity
+            );
+        }
+    }
+
+    
 }
