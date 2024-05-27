@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1079250861965744661}
-  - component: {fileID: 2509069471234926662}
   - component: {fileID: 3905117059594122829}
+  - component: {fileID: 2143111375720412400}
   m_Layer: 9
   m_Name: EnemyHitbox
   m_TagString: Untagged
@@ -33,8 +33,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9123927127397071274}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &2509069471234926662
-BoxCollider2D:
+--- !u!114 &3905117059594122829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690161259260430422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054f568455e177543b8041d8e034b929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCollider: {fileID: 2143111375720412400}
+  attackDamage: 1
+  knockbackForce: 6
+  knockbackDuration: 0.3
+  maxKnockbackDistance: 2
+--- !u!70 &2143111375720412400
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -65,36 +82,9 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &3905117059594122829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690161259260430422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 054f568455e177543b8041d8e034b929, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackCollider: {fileID: 2509069471234926662}
-  attackDamage: 1
-  knockbackForce: 1
-  knockbackDuration: 1
-  maxKnockbackDistance: 1
+  m_Offset: {x: -0.023900509, y: 0.02}
+  m_Size: {x: 1.5212402, y: 1.5212402}
+  m_Direction: 0
 --- !u!1 &3320752112774772997
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +185,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 0.90625, y: 0.9375}
     newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -245,7 +235,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1466249101, guid: db9872237e8f8914e9c5d6f649242367, type: 3}
+  m_Sprite: {fileID: -1605229683432850714, guid: ffdb7ac76038372469f3d884102cf686, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -268,15 +258,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55387468ff5b5e41bfeccc077343663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints: []
-  noticeDistance: 0
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  noticeDistance: 4
   waypointTolerance: 1
   knockbackForce: 2
-  attackRange: 1
-  attackDelay: 1
-  lungeForce: 1
+  attackRange: 3
+  attackDelay: 4
+  lungeForce: 5
   attackRecovery: 1
-  rb: {fileID: 0}
+  rb: {fileID: 4208682910102823383}
   player: {fileID: 0}
   speed: 1
   pursuingPlayer: 0
@@ -285,6 +277,7 @@ MonoBehaviour:
   direction: 
   attackHitbox: {fileID: 690161259260430422}
   isAttacking: 0
+  currentState: 0
 --- !u!114 &7925731676934375341
 MonoBehaviour:
   m_ObjectHideFlags: 0

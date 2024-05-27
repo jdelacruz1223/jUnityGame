@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        
     }
 
     private bool TryMove(Vector2 direction)

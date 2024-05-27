@@ -1,15 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+//using System.Numerics;
 using UnityEditor.Callbacks;
 
 //using System.Numerics;
 using UnityEngine;
+using UnityEngine.Jobs;
 
 public class BasicEnemy : MonoBehaviour
 {
     [SerializeField] private GameObject[] waypoints;
-    [SerializeField] public float noticeDistance = 6f;
+    [SerializeField] public float noticeDistance = 4f;
     [SerializeField] private float waypointTolerance = 1f;
     [SerializeField] public float knockbackForce = 10f;
     [SerializeField] private float attackRange = 1f;
@@ -30,99 +32,135 @@ public class BasicEnemy : MonoBehaviour
     Collider2D attackCollider;
     public GameObject attackHitbox;
     public bool isAttacking = false;
-    
+    public enum MovementState 
+    {
+        None,
+        Chasing,
+        Attacking,
+        Patrolling
+    }
+
+    [SerializeField] public MovementState currentState;
 
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
-        attackCollider = attackHitbox.GetComponent<Collider2D>();
+        attackCollider = attackHitbox.GetComponent<Collider2D>(); 
+            
+        currentState = MovementState.Patrolling;
     }
 
     void Update()
     {
-        if (!isAttacking)
+        DebugRay();
+        if (player == null)
         {
-            direction = getDirection();
+            player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null) return;
+        }
 
-            if (player == null)
-            {
-                player = GameObject.FindGameObjectWithTag("Player");
-            }
-            
-            if (distanceTo(player) < noticeDistance)
-            {
+        if(currentState != MovementState.Attacking)
+        {
+            direction = GetDirection();
+        }
+
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distance < noticeDistance && distance >= attackRange)
+        {
+            currentState = MovementState.Chasing;
+        }
+        else if (distance <= attackRange)
+        {
+            currentState = MovementState.Attacking;
+        }
+        else 
+        {
+            currentState = MovementState.Patrolling;
+        }
+
+        HandleState();
+    }
+
+    private void HandleState()
+    {
+        switch (currentState)
+        {
+            case MovementState.Chasing:
                 ChasePlayer();
-            }
-            else
-            {
+                break;
+            case MovementState.Attacking:
+                if(!isAttacking)
+                {
+                    StartCoroutine(AttackCoroutine());
+                }
+                break;
+            case MovementState.Patrolling:
                 FollowWaypoint();
-            }
-
-            
+                break;
+            default:
+                Debug.Log("Unknown State");
+                break;
         }
-        
     }
 
-    IEnumerator ReadyAttackCoroutine()
+    private IEnumerator AttackCoroutine()
     {
-        Debug.Log("1 sec");
-        yield return new WaitForSeconds(attackDelay);
-    }
+        isAttacking = true;
 
-    IEnumerator AttackCoroutine()
-    {
-        //lock movement here
-        EnableCollider();
-        UpdateHitboxPosition(direction);
+        Debug.Log("AttackCoroutine");
         AttackLunge();
-        
-        //animation call here
 
-        for (int i = 0; i < attackRecovery; i++)
-        {
-            yield return new WaitForEndOfFrame();
-        }
+        yield return new WaitForSeconds(attackDelay);
+        rb.velocity = Vector2.zero;
         DisableCollider();
-        //unlock movement here
-    } 
 
-    void AttackLunge()
+        isAttacking = false;
+    }
+
+    private void DebugRay()
+    {
+        Vector3 direction = (player.transform.position - transform.position).normalized;
+        Ray ray = new Ray(transform.position, direction);
+
+        Debug.DrawRay(ray.origin, ray.direction * attackRange, Color.red);
+    }
+
+    private void AttackLunge()
     {
         Vector2 posA = transform.position;
         Vector2 posB = player.transform.position;
         Vector2 targetVector = (posB - posA).normalized;
 
-        rb.AddForce(targetVector * lungeForce, ForceMode2D.Impulse);
+        RaycastHit2D hit = Physics2D.Raycast(posA, targetVector, attackRange);
+
+        if (hit.collider != null)
+        {
+            if (hit.collider.gameObject.CompareTag("Player"))
+            {
+                Debug.Log("hit");
+                rb.velocity = Vector2.zero;
+                rb.AddForce(targetVector * lungeForce, ForceMode2D.Impulse);
+
+                EnableCollider();
+            }
+        }
     }
 
     private void ChasePlayer()
     {
         pursuingPlayer = true;
-
-        if (speed != 1.5)
-        {
-            ChangeSpeed(pursuingPlayer);
-        }
+        speed = 1.5f;
+        noticeDistance = 7f;
         
-        if(distanceTo(player) <= attackRange)
-        {
-            Debug.Log("Enemy Attack!");
-            isAttacking = true;
-            StartCoroutine(ReadyAttackCoroutine());
-            StartCoroutine(AttackCoroutine());
-            isAttacking = false;
-        }
-        else
-        {
-            transform.position = Vector2.MoveTowards
-            (
-                this.transform.position, 
-                player.transform.position, 
-                speed * Time.deltaTime
-            );
-        }
+        transform.position = Vector2.MoveTowards
+        (
+            this.transform.position, 
+            player.transform.position, 
+            speed * Time.deltaTime
+        );
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -145,6 +183,8 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
+    
+
     private float distanceTo(GameObject theObject)
     {
         float xDiff = theObject.transform.position.x - transform.position.x;
@@ -155,13 +195,13 @@ public class BasicEnemy : MonoBehaviour
     }
 
     //from HitboxController
-    void OnHit(float damage) 
+    public void OnHit(float damage) 
     {
         Debug.Log(gameObject.name + " hit for " + damage);
         health.Damage((int)damage);
     }
 
-    public string getDirection()
+    private string GetDirection()
     {
         Vector2 posA = transform.position;
         Vector2 directionVector =  posA - posB;
@@ -192,32 +232,6 @@ public class BasicEnemy : MonoBehaviour
         return currentDirection;
     }
 
-    void UpdateHitboxPosition(string direction)
-    {
-        Quaternion rotation = Quaternion.identity;
-
-        switch(direction)
-        {
-            case "up":
-            rotation = Quaternion.Euler(0,0,180);
-            break;
-            case "down":
-            rotation = Quaternion.Euler(0,0,0);
-            break;
-            case "left":
-            rotation = Quaternion.Euler(0,0,-90);
-            break;
-            case "right":
-            rotation = Quaternion.Euler(0,0,90);
-            break;
-            case "default":
-            Debug.LogWarning("Invalid Direction");
-            return;
-        }
-
-        attackCollider.transform.rotation = rotation;
-    }
-
     public void EnableCollider()
     {
         if(attackCollider != null)
@@ -239,6 +253,8 @@ public class BasicEnemy : MonoBehaviour
         //If the aggressor gets closer to the waypoint than the waypointTolerance then switch to the next waypoint
         try
         {
+            speed = 1f;
+            noticeDistance = 4f;
             pursuingPlayer = false;
             if (
                 Vector2.Distance
@@ -280,18 +296,6 @@ public class BasicEnemy : MonoBehaviour
             sprite.flipX = false;
         }
         oldX = transform.position.x;
-    }
-
-    private void ChangeSpeed(bool pursuingPlayer)
-    {
-        if(pursuingPlayer)
-        {
-            speed = 1.5f;
-        }
-        else
-        {
-            speed = 1f;
-        }
     }
 
 

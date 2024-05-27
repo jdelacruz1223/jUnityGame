@@ -206,10 +206,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9fde091744e2147b535143c3b1d8a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 
   canMove: 1
-  attackDuration: 1
   attackDelay: 200
+  direction: 
   swordHitbox: {fileID: 5855443303422473797}
 --- !u!114 &616597973041740203
 MonoBehaviour:
@@ -364,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swordCollider: {fileID: 605990350107847637}
-  swordDamage: 10
+  swordDamage: 20
   knockbackForce: 6
   knockbackDuration: 0.3
   maxKnockbackDistance: 2

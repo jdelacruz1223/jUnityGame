@@ -18,19 +18,32 @@ public class EnemyHitboxController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider == null || collider.gameObject.tag != "Enemy") return;
-        Debug.Log("Knockback enemy");
-        Rigidbody2D enemyRigidbody = collider.GetComponent<Rigidbody2D>();
-        if (enemyRigidbody != null)
+        if (collider == null || collider.gameObject.tag != "Player") return;
+
+        Debug.Log("Knockback Player");
+
+        Rigidbody2D playerRb = collider.GetComponent<Rigidbody2D>();
+
+        if (playerRb != null)
         {
             Vector2 direction = (collider.transform.position - transform.position).normalized;
             Vector2 knockbackForceVector = direction * knockbackForce;
-            enemyRigidbody.velocity = Vector2.zero; // Reset velocity to avoid interference
-            enemyRigidbody.AddForce(knockbackForceVector, ForceMode2D.Impulse);
+            playerRb.velocity = Vector2.zero;
+            playerRb.AddForce(knockbackForceVector, ForceMode2D.Impulse);
         }
 
-        StartCoroutine(ApplyKnockback(collider.gameObject, collider.transform.position, knockbackDuration));
-        collider.SendMessage("OnHit", attackDamage);
+        StartCoroutine
+        (
+            ApplyKnockback
+            (
+                collider.gameObject, 
+                collider.transform.position, 
+                knockbackDuration
+            )
+        );
+
+        //collider.SendMessage("OnHit", attackDamage);
+        DataManager.me.lifeCount--;
     }
 
     IEnumerator ApplyKnockback(GameObject target, Vector2 targetPosition, float duration)
