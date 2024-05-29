@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Unity.Mathematics;
+#if UNITY_EDITOR
 using UnityEditor.Experimental.GraphView;
+#endif
+
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.InputSystem;
