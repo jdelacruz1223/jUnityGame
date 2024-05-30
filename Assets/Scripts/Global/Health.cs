@@ -63,6 +63,7 @@ public class Health : MonoBehaviour
         else
         {
             dropBomb();
+            if(gameObject.name == "Boss Variant(Clone)") DataManager.me.isBossDead = true;
             Destroy(gameObject);
         }
             

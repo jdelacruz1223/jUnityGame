@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,8 +15,13 @@ public class DataManager : MonoBehaviour
     public GameObject bossPrefab;
     public Vector3 bossSpawnPos;
     private bool isBossSpawned = false;
+    public int destroyedDoors = 0;
+    public bool isBossDead = false;
 
 
+    void Start()
+    {
+    }
     void SpawnBoss()
     {
         Instantiate(bossPrefab, bossSpawnPos, Quaternion.identity);
@@ -26,20 +32,22 @@ public class DataManager : MonoBehaviour
     
     void Update()
     {
-        if(!isBossSpawned && BombsCollected == 4)
+        if(destroyedDoors >= 3 && !isBossSpawned)
         {
             SpawnBoss();
         }
 
-        if(lifeCount == 0)
+        if(lifeCount <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
         if(Input.GetKeyDown(KeyCode.P))
         {
-            lifeCount--;
+            lifeCount++;
         }
+
+        if(isBossDead) Application.Quit();
         
     }
 

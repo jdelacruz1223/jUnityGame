@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2879e7ffb84d1db418058b5f0f4cdef8
+guid: c6238f03e2cdf864c8e94b1b67b88c18
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638525365767501563
+  platformSettingsDirtyTick: 638525338562324174
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Boss
+  - name: brokendoorspawn_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: -0.051724136}
+    pivot: {x: 0.49056605, y: -0.10526316}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 56
-      height: 58
-    spriteID: 0cbdd93dbdc41884ba06875419991c5a
+      width: 53
+      height: 57
+    spriteID: 24b7915cb21fa4d4e9535ee4c630beb0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,118 +141,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Boss_Frame_1
+  - name: brokendoorspawn_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: -0.051724136}
+    pivot: {x: 0.5, y: -0.12244898}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 70
-      width: 56
-      height: 58
-    spriteID: 415e77a8cc74a8241bc89f750d5a5a02
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 70}
-  - name: Boss_Frame_2
-    originalName: 
-    pivot: {x: 0.5, y: -0.05263158}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 136
-      width: 56
-      height: 57
-    spriteID: cd98021f936d9834db0258452cfbdf93
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 136}
-  - name: Boss_Frame_3
-    originalName: 
-    pivot: {x: 0.5, y: -0.05263158}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 68
-      y: 4
-      width: 56
-      height: 57
-    spriteID: 6df035d8b5e02af40acaddee6f85cbe1
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 68, y: 4}
-  - name: Boss_Frame_4
-    originalName: 
-    pivot: {x: 0.5, y: -0.054545455}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 68
-      y: 197
-      width: 56
-      height: 55
-    spriteID: db344776c454d3e45ac0c763065d7947
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 68, y: 197}
-  - name: Boss_Frame_5
-    originalName: 
-    pivot: {x: 0.5, y: -0.054545455}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 132
-      y: 4
-      width: 56
-      height: 55
-    spriteID: 259ea093acc41264abf9c52fc1e016a7
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 132, y: 4}
-  - name: Boss_Frame_6
-    originalName: 
-    pivot: {x: 0.5, y: -0.053571433}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 68
       y: 69
-      width: 56
-      height: 56
-    spriteID: 58810ef62606ed2479d371fee65da01f
+      width: 50
+      height: 49
+    spriteID: 83c386ea1e2e78141a9a0bcf520a39d3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -260,100 +160,32 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 68, y: 69}
-  - name: Boss_Frame_7
-    originalName: 
-    pivot: {x: 0.5, y: -0.053571433}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 68
-      y: 133
-      width: 56
-      height: 56
-    spriteID: 00eeff5b63265f64aac5db40199b74fd
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 68, y: 133}
+    uvTransform: {x: 4, y: 69}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1350520637
-    name: Boss
+    guid: -1783011270
+    name: brokendoorspawn
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Boss_Frame_0
+    - name: brokendoorspawn_Frame_0
       frameIndex: 0
       cellRect:
-        x: 4
-        y: 3
-        width: 56
-        height: 58
-      spriteId: 0cbdd93dbdc41884ba06875419991c5a
-    - name: Boss_Frame_1
+        x: 6
+        y: 6
+        width: 53
+        height: 57
+      spriteId: 24b7915cb21fa4d4e9535ee4c630beb0
+    - name: brokendoorspawn_Frame_1
       frameIndex: 1
       cellRect:
-        x: 4
-        y: 3
-        width: 56
-        height: 58
-      spriteId: 415e77a8cc74a8241bc89f750d5a5a02
-    - name: Boss_Frame_2
-      frameIndex: 2
-      cellRect:
-        x: 4
-        y: 3
-        width: 56
-        height: 57
-      spriteId: cd98021f936d9834db0258452cfbdf93
-    - name: Boss_Frame_3
-      frameIndex: 3
-      cellRect:
-        x: 4
-        y: 3
-        width: 56
-        height: 57
-      spriteId: 6df035d8b5e02af40acaddee6f85cbe1
-    - name: Boss_Frame_4
-      frameIndex: 4
-      cellRect:
-        x: 4
-        y: 3
-        width: 56
-        height: 55
-      spriteId: db344776c454d3e45ac0c763065d7947
-    - name: Boss_Frame_5
-      frameIndex: 5
-      cellRect:
-        x: 4
-        y: 3
-        width: 56
-        height: 55
-      spriteId: 259ea093acc41264abf9c52fc1e016a7
-    - name: Boss_Frame_6
-      frameIndex: 6
-      cellRect:
-        x: 4
-        y: 3
-        width: 56
-        height: 56
-      spriteId: 58810ef62606ed2479d371fee65da01f
-    - name: Boss_Frame_7
-      frameIndex: 7
-      cellRect:
-        x: 4
-        y: 3
-        width: 56
-        height: 56
-      spriteId: 00eeff5b63265f64aac5db40199b74fd
+        x: 7
+        y: 6
+        width: 50
+        height: 49
+      spriteId: 83c386ea1e2e78141a9a0bcf520a39d3
     linkedCells: []
     parentIndex: -1
   platformSettings:

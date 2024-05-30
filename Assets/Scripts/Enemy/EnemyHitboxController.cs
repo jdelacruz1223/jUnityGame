@@ -9,8 +9,8 @@ public class EnemyHitboxController : MonoBehaviour
     [SerializeField] public float knockbackForce = 1f;
     [SerializeField] public float knockbackDuration = 1f;
     [SerializeField] public float maxKnockbackDistance = 1f;
+    [SerializeField] private int recoveryDuration = 1;
 
-    
     void Start()
     {
         if(attackCollider == null) Debug.LogWarning("Enemy Attack Collider not set");
@@ -42,8 +42,8 @@ public class EnemyHitboxController : MonoBehaviour
             )
         );
 
-        //collider.SendMessage("OnHit", attackDamage);
-        DataManager.me.lifeCount--;
+        //DataManager.me.lifeCount--;
+        StartCoroutine(TakeDamage());
     }
 
     IEnumerator ApplyKnockback(GameObject target, Vector2 targetPosition, float duration)
@@ -54,6 +54,17 @@ public class EnemyHitboxController : MonoBehaviour
         {
             enemyRigidbody.velocity = Vector2.zero; // Stop the enemy after knockback
         }
+    }
+
+    IEnumerator TakeDamage()
+    {
+        Debug.Log("TakeDamage");
+        DataManager.me.lifeCount--;
+        for (int i = 0; i <= recoveryDuration; i++)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        
     }
 
     

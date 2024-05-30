@@ -11,13 +11,13 @@ using UnityEngine.Jobs;
 public class BasicEnemy : MonoBehaviour
 {
     [SerializeField] private GameObject[] waypoints;
-    [SerializeField] public float noticeDistance = 4f;
-    [SerializeField] private float waypointTolerance = 1f;
-    [SerializeField] public float knockbackForce = 10f;
-    [SerializeField] private float attackRange = 1f;
-    [SerializeField] public int attackDelay = 1;
-    [SerializeField] public float lungeForce = 1f;
-    [SerializeField] private float attackRecovery = 1f;
+    [SerializeField] public float noticeDistance;
+    [SerializeField] private float waypointTolerance;
+    [SerializeField] public float knockbackForce;
+    [SerializeField] private float attackRange;
+    [SerializeField] public int attackDelay;
+    [SerializeField] public float lungeForce;
+    [SerializeField] private float attackRecovery;
     Health health;
     private SpriteRenderer sprite;
     public Rigidbody2D rb;
@@ -40,7 +40,11 @@ public class BasicEnemy : MonoBehaviour
         Patrolling
     }
 
+    private int enemyLayer;
+    private int playerLayer;
+
     [SerializeField] public MovementState currentState;
+    [SerializeField] public float lungeDuration = 1;
 
     void Start()
     {
@@ -48,13 +52,15 @@ public class BasicEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
         attackCollider = attackHitbox.GetComponent<Collider2D>(); 
+        playerLayer = LayerMask.NameToLayer("Player");
+        enemyLayer = LayerMask.NameToLayer("Enemy");
             
         currentState = MovementState.Patrolling;
     }
 
     void Update()
     {
-        DebugRay();
+        //DebugRay();
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
@@ -115,7 +121,6 @@ public class BasicEnemy : MonoBehaviour
 
         yield return new WaitForSeconds(attackDelay);
         rb.velocity = Vector2.zero;
-        DisableCollider();
 
         isAttacking = false;
     }
@@ -133,8 +138,10 @@ public class BasicEnemy : MonoBehaviour
         Vector2 posA = transform.position;
         Vector2 posB = player.transform.position;
         Vector2 targetVector = (posB - posA).normalized;
+        
+        int layerMask = ~(1 << enemyLayer);
 
-        RaycastHit2D hit = Physics2D.Raycast(posA, targetVector, attackRange);
+        RaycastHit2D hit = Physics2D.Raycast(posA, targetVector, attackRange, layerMask);
 
         if (hit.collider != null)
         {
@@ -142,11 +149,19 @@ public class BasicEnemy : MonoBehaviour
             {
                 Debug.Log("hit");
                 rb.velocity = Vector2.zero;
+                EnableCollider();
                 rb.AddForce(targetVector * lungeForce, ForceMode2D.Impulse);
 
-                EnableCollider();
+                StartCoroutine(LungeStop(lungeDuration));
             }
         }
+    }
+
+    private IEnumerator LungeStop(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        rb.velocity = Vector2.zero;
+        DisableCollider();
     }
 
     private void ChasePlayer()
